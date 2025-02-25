@@ -1,0 +1,55 @@
+API Documentation
+
+1️⃣ Upload CSV
+📌 POST /upload/
+
+Request (Form-Data)
+Key - file
+value - products.CSV
+
+Response
+{
+  "requestId": "123e4567-e89b-12d3-a456-426614174000"
+}
+
+
+2️⃣ Start Processing
+📌 POST /process/123e4567-e89b-12d3-a456-426614174000/
+
+Response
+{
+  "message": "Processing started"
+}
+
+
+3️⃣ Check Status
+📌 GET /status/123e4567-e89b-12d3-a456-426614174000/
+
+Response
+{
+  "requestId": "123e4567-e89b-12d3-a456-426614174000",
+  "status": "COMPLETED"
+}
+
+
+4️⃣ Get Processed Images
+📌 GET /products/123e4567-e89b-12d3-a456-426614174000/
+
+Response
+{
+  "requestId": "123e4567-e89b-12d3-a456-426614174000",
+  "products": [
+    {
+      "serial_number": 1,
+      "product_name": "Product A",
+      "input_image_urls": "https://images.unsplash.com/photo-1521747116042-5a810fda9664",
+      "output_image_urls": "https://images.unsplash.com/photo-1521747116042-5a810fda9664-output"
+    },
+    {
+      "serial_number": 2,
+      "product_name": "Product B",
+      "input_image_urls": "https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0",
+      "output_image_urls": "https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0-output"
+    }
+  ]
+}

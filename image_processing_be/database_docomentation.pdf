@@ -1,0 +1,52 @@
+                         Database Schema Design Documentation
+The database schema includes two main collections:
+Requests: Tracks the status of each image processing request.
+Products: Stores product data and associated input and output image URLs.
+
+ Requests Collection
+Schema Name: Request
+Fields:
+id (String, Required, Unique): The unique identifier for the request.
+status (String, Enum, Required): The current status of the request. Possible values:
+"PENDING"
+"PROCESSING"
+"COMPLETED"
+"FAILED"
+createdAt (Date, Default: Current Date): The timestamp when the request was created.
+updatedAt (Date, Default: Current Date): The timestamp when the request was last updated.
+
+Products Collection
+Schema Name: Product
+Fields:
+requestId (String, Required): The unique identifier for the request this product is associated with.
+serialNumber (Number, Required): The serial number of the product.
+productName (String, Required): The name of the product.
+inputImageUrls (Array of Strings, Required): A list of URLs pointing to the input images for this product.
+outputImageUrls (Array of Strings, Default: []): A list of URLs pointing to the processed output images for this product.
+createdAt (Date, Default: Current Date): The timestamp when the product entry was created.
+updatedAt (Date, Default: Current Date): The timestamp when the product entry was last updated.
+
+ Database Interaction
+1️.Storing and Tracking Requests
+Create Request:
+When a new CSV file is uploaded, a new request document is created with:
+A unique request ID
+Status set to "PENDING"
+Update Request Status:
+As the worker processes the images, the request status is updated to:
+"PROCESSING"
+"COMPLETED"
+"FAILED"
+
+2️. Storing Product Data
+Create Product:
+For each row in the CSV file, a new product document is created with:
+The associated requestId
+serialNumber
+productName
+inputImageUrls
+Update Product Data:
+Once the images are processed, the product document is updated with:
+outputImageUrls
+ 
+
